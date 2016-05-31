@@ -1,2 +1,2 @@
-# solshal-chrome-extension
-Chrome extension for Solshal
+# Solshal Chrome Extension
+Chrome extension for Solshal web app
