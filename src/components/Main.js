@@ -1,22 +1,31 @@
 require('normalize.css/normalize.css');
 require('styles/App.css');
 
-import React from 'react';
+import React, { Component } from 'react';
 
-let yeomanImage = require('../images/yeoman.png');
+class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: false
+    }
+  }
 
-class AppComponent extends React.Component {
+  componentDidMount() {
+    this.setState({
+      status: false
+    });
+  }
+
   render() {
+    let status = this.state;
+
     return (
       <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
+        component did mount? {status}
       </div>
     );
   }
 }
 
-AppComponent.defaultProps = {
-};
-
-export default AppComponent;
+export default Main;
