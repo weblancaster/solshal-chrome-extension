@@ -11,7 +11,7 @@ const initialState = {
   isAuthenticated: loggedIn(),
   userId: getUserId(),
   username: getUserName()
-}
+};
 
 function auth(state = initialState, action) {
   switch ( action.type ) {

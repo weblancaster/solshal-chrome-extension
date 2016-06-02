@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
+import Main from '../components/main';
 
 class App extends Component {
   render() {
@@ -9,8 +9,10 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const props = {};
-  return props;
+  let { auth } = state;
+  return {
+    auth: auth
+  };
 }
 
 export default connect(mapStateToProps)(App);
