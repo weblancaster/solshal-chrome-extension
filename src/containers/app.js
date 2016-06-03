@@ -3,25 +3,27 @@ require('styles/App.css');
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loggedIn } from '../sources/helpers';
-import Authorized from './../containers/authorized';
-import Unauthorized from './../containers/unauthorized';
+import Authorized from './authorized';
+import Unauthorized from './../components/unauthorized';
 
 class App extends Component {
   render() {
-    if ( loggedIn() ) {
+    let { isAuthenticated, dispatch } = this.props;
+
+    if ( isAuthenticated ) {
       return <Authorized />
     } else {
-      return <Unauthorized />
+      return <Unauthorized dispatch={dispatch} />
     }
   }
 }
 
 function mapStateToProps(state) {
-  let { auth } = state;
+  let { isAuthenticated } = state.auth;
   return {
-    auth: auth
-  };
+    isAuthenticated: isAuthenticated
+  }
+
 }
 
 export default connect(mapStateToProps)(App);

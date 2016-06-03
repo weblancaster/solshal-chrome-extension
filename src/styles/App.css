@@ -1,12 +1,124 @@
-/* Base Application Styles */
 * {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   box-sizing: border-box;
 }
 
-html {
-  width: 400px;
+html, body {
+  height: 100%;
 }
 
 body {
-  font: 62.5% helvetica, sans-serif;
+  font-size: 62.5%;
+  font-family: 'Work Sans', sans-serif;
+}
+
+label {
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+input[type="text"], input[type="email"], input[type="search"], input[type="password"], input[type="number"] {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #5a6677;
+  font-size: 0.8rem;
+  -webkit-appearance: none;
+  background: transparent;
+  border-bottom: 1px solid #EDF1F2;
+  padding: 10px 5px;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="search"]:focus, input[type="password"]:focus, input[type="number"]:focus {
+  border-bottom: 1px solid #20BEBC;
+}
+
+textarea {
+  outline: none;
+  width: 100%;
+  color: #5a6677;
+  font-size: 0.8rem;
+}
+
+select {
+  color: #5a6677;
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #20BEBC;
+}
+
+/**
+** App
+**/
+#app {
+  border-top: 4px solid #20BEBC;
+  width: 450px;
+}
+
+.app-form_container {
+  overflow: hidden;
+  width: 100%;
+  margin: 15px auto;
+  padding: 0 10px;
+}
+
+.app-form_container .title {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  color: #20BEBC;
+}
+
+.app-form_container label {
+  display: block;
+  margin: 30px 0;
+}
+
+.app-form_container .column {
+  display: flex;
+  flex-direction: row;
+}
+
+.app-form_container .column select {
+  align-self: flex-end;
+}
+
+.app-form_container .column input {
+  margin-left: 15px;
+}
+
+.app-form_button {
+  cursor: pointer;
+  outline: none;
+  float: right;
+  display: block;
+  align-self: flex-end;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: none;
+  background: #20BEBC;
+  color: #fff;
+  transition: all .3s ease-out;
+  min-width: 75px;
+  border-radius: 5px;
+}
+
+.app-form_button:hover {
+  background: #EDF1F2;
+  color: #000;
 }
