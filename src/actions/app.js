@@ -14,3 +14,27 @@ export function setCurrentTabUrl(currentTabUrl) {
     currentTabUrl: currentTabUrl
   }
 }
+
+export function setNotification(response, message) {
+  return (dispatch, getState) => {
+    dispatch(openNotification(response, message));
+  }
+}
+
+export function openNotification(response, message) {
+  return {
+    type: types.SET_NOTIFICATION,
+    response: response,
+    message: message || '',
+    isOpen: true
+  }
+}
+
+export function resetNotification() {
+  return {
+    type: types.SET_NOTIFICATION,
+    response: null,
+    message: '',
+    isOpen: false
+  }
+}

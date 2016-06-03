@@ -122,3 +122,62 @@ a:hover {
   background: #EDF1F2;
   color: #000;
 }
+
+/**
+** Notification
+**/
+.notification {
+  display: none;
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  -webkit-animation: show 0.5s ease-out;
+  animation: show 0.5s ease-out;
+}
+
+.notification.active {
+  display: block;
+}
+
+.notification_content {
+  font-size: 1.2rem;
+  padding: 10px;
+  color: #fff;
+  transition: background 0.4s ease-out;
+}
+.notification_content.success {
+  background: #20BEBC;
+}
+.notification_content.failed {
+  background: #EB5767;
+}
+
+.notification_title {
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.notification_message {
+  font-size: 15px;
+}
+
+@-webkit-keyframes show {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes show {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
