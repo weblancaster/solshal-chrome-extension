@@ -10,6 +10,15 @@ export function logOut() {
 }
 
 /**
+ * Save key/value in session
+ * @param key [to be saved in session]
+ * @param value [value for the key]
+ */
+export function saveSessionKey(key, value) {
+  localStorage.setItem(key, value);
+}
+
+/**
  * Check if userId is in session
  * otherwise save in case user is authenticated
  * and return userId
