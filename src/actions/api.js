@@ -10,6 +10,9 @@ import {
   getUserId,
   getHeaders
 } from '../sources/helpers';
+import {
+  setNotification
+} from './app';
 
 export function authed(token, tokenDecoded) {
   return {
@@ -81,6 +84,7 @@ export function verifyToken(token) {
         return json.isValid;
       })
       .catch((err) => {
+        dispatch(setNotification(types.RESPONSE_FAILED, err.message));
         return false;
       })
   }
@@ -111,6 +115,7 @@ export function signin(body) {
       })
       .catch((err) => {
         dispatch(unauthed());
+        dispatch(setNotification(types.RESPONSE_FAILED, err.message));
       })
   }
 }
@@ -132,16 +137,16 @@ export function getFolders() {
       .then(parseJSON)
       .then(json => {
         dispatch(updateFolders(json.folders));
-        console.log('get folders');
       }).catch((err) => {
-
+        dispatch(setNotification(types.RESPONSE_FAILED, err.message));
       })
   }
 }
 
 /**
- * Add new folder and save new collection
- * return
+ * Add new folder and on success
+ * update folders state with newly added folder
+ * then call save collection
  * @param newFolder
  * @param newCollection
  * @param currentFolderParam
@@ -161,15 +166,19 @@ export function addNewFolderAndSaveCollection(newFolder, newCollection) {
         // add the folder id to the body before save the collection
         newCollection['folderId'] = json.folder._id;
         dispatch(updateFolders(json.folders));
-        console.log('folder saved');
         // save new collection
         dispatch(saveCollection(newCollection));
       }).catch((err) => {
-
+        dispatch(setNotification(types.RESPONSE_FAILED, err.message));
       })
   }
 }
 
+/**
+ * Save collection to specific folder
+ * @param body
+ * @returns {function()}
+ */
 export function saveCollection(body) {
   return (dispatch) => {
     let endpoint = `${types.BASE_API}/users/${getUserId()}/folders/${body.folderId}/collections`;
@@ -181,10 +190,9 @@ export function saveCollection(body) {
       .then(checkStatus)
       .then(parseJSON)
       .then(json => {
-        console.log('collection saved');
+        dispatch(setNotification(types.RESPONSE_SUCCESSFUL));
       }).catch((err) => {
-
-
+        dispatch(setNotification(types.RESPONSE_FAILED, err.message));
       })
   }
 }

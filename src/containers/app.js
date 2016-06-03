@@ -3,18 +3,29 @@ require('styles/App.css');
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Notification from './notification';
 import Authorized from './authorized';
 import Unauthorized from './../components/unauthorized';
 
+
 class App extends Component {
-  render() {
+  resolveComponent() {
     let { isAuthenticated, dispatch } = this.props;
 
     if ( isAuthenticated ) {
-      return <Authorized />
-    } else {
-      return <Unauthorized dispatch={dispatch} />
-    }
+        return <Authorized />
+      } else {
+        return <Unauthorized dispatch={dispatch} />
+      }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.resolveComponent()}
+        <Notification />
+      </div>
+    )
   }
 }
 
