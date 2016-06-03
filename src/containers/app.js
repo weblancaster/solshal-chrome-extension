@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Notification from './notification';
 import Authorized from './authorized';
-import Unauthorized from './../components/unauthorized';
-
+import Unauthorized from '../components/unauthorized';
+import Header from '../components/header';
 
 class App extends Component {
   resolveComponent() {
@@ -22,6 +22,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Header />
         {this.resolveComponent()}
         <Notification />
       </div>
