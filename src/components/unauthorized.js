@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Button from '../containers/button';
 import { signin } from '../actions/api';
 
 class Unauthorized extends Component {
@@ -31,7 +32,7 @@ class Unauthorized extends Component {
             <label htmlFor="password">
               <input type="password" ref="password" name="password" placeholder="password" required />
             </label>
-            <button type="submit" className="app-form_button">login</button>
+            <Button label="login" />
           </form>
         </div>
       </div>

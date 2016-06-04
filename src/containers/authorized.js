@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactDom from 'react-dom';
+import Button from './button';
 import {
   getCurrentTabUrl
 } from '../actions/app';
@@ -93,7 +94,7 @@ class Authorized extends Component {
               </select>
               <input type="text" ref="newFolder" name="newFolder" placeholder="Add new folder"/>
             </label>
-            <button type="submit" className="app-form_button">save</button>
+            <Button label="save" />
           </form>
         </div>
       </div>

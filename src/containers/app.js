@@ -5,14 +5,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Notification from './notification';
 import Authorized from './authorized';
-import Unauthorized from './../components/unauthorized';
+import Unauthorized from '../components/unauthorized';
+import Header from '../components/header';
 
+import { verifyToken } from '../actions/api';
 
 class App extends Component {
+  componentDidMount() {
+    let { dispatch, token } = this.props;
+    if ( token ) {
+      dispatch(verifyToken());
+    }
+  }
+
   resolveComponent() {
     let { isAuthenticated, dispatch } = this.props;
 
-    if ( isAuthenticated ) {
+    if ( isAuthenticated) {
         return <Authorized />
       } else {
         return <Unauthorized dispatch={dispatch} />
@@ -20,8 +29,11 @@ class App extends Component {
   }
 
   render() {
+    let { isAuthenticated, dispatch } = this.props;
+
     return (
       <div>
+        <Header isAuthenticated={isAuthenticated} dispatch={dispatch} />
         {this.resolveComponent()}
         <Notification />
       </div>
@@ -30,8 +42,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  let { isAuthenticated } = state.auth;
+  let { isAuthenticated, token } = state.auth;
   return {
+    token: token,
     isAuthenticated: isAuthenticated
   }
 
