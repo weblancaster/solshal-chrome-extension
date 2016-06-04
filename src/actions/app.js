@@ -38,3 +38,10 @@ export function resetNotification() {
     isOpen: false
   }
 }
+
+export function setLoading(value) {
+  return {
+    type: types.SET_LOADING,
+    isLoading: value
+  }
+}

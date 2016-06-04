@@ -6,7 +6,8 @@ const initialState = {
     response: null,
     message: '',
     isOpen: false
-  }
+  },
+  isLoading: false
 };
 
 function app(state = initialState, action) {
@@ -22,6 +23,10 @@ function app(state = initialState, action) {
           message: action.message,
           isOpen: action.isOpen
         }
+      });
+    case types.SET_LOADING:
+      return Object.assign({}, state, {
+        isLoading: action.isLoading
       });
     default:
       return state;

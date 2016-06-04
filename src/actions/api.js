@@ -11,7 +11,8 @@ import {
   getHeaders
 } from '../sources/helpers';
 import {
-  setNotification
+  setNotification,
+  setLoading
 } from './app';
 
 export function authed(token, tokenDecoded) {
@@ -68,20 +69,24 @@ export function updateFolders(folders) {
  * @param token
  * @returns {Promise.<T>}
  */
-export function verifyToken(token) {
-  return (dispatch) => {
-    return fetch(`${types.BASE_API}/auth/verify`, {
+export function verifyToken() {
+  return (dispatch, getState) => {
+    return fetch(`${types.BASE}/auth/verify`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({token : token})
+      body: JSON.stringify({token : getState().auth.token})
     })
       .then(checkStatus)
       .then(parseJSON)
       .then(json => {
-        return json.isValid;
+        if ( json.isValid ) {
+          return json.isValid
+        } else {
+          dispatch(logout());
+        }
       })
       .catch((err) => {
         dispatch(setNotification(types.RESPONSE_FAILED, err.message));
@@ -98,6 +103,7 @@ export function verifyToken(token) {
  */
 export function signin(body) {
   return (dispatch) => {
+    dispatch(setLoading(true));
     return fetch(`${types.BASE}/login`, {
       method: 'post',
       headers: {
@@ -112,10 +118,12 @@ export function signin(body) {
         let tokenDecoded = decodeToken(json);
         dispatch(saveToken(json));
         dispatch(authed(json, tokenDecoded));
+        dispatch(setLoading(false));
       })
       .catch((err) => {
         dispatch(unauthed());
         dispatch(setNotification(types.RESPONSE_FAILED, err.message));
+        dispatch(setLoading(false));
       })
   }
 }
@@ -123,7 +131,6 @@ export function signin(body) {
 /**
  * Get latest folders
  * once successful set current folder if existent
- * @param currentFolderParam {string}
  * @returns {Function}
  */
 export function getFolders() {
@@ -149,11 +156,11 @@ export function getFolders() {
  * then call save collection
  * @param newFolder
  * @param newCollection
- * @param currentFolderParam
  * @returns {function()}
  */
 export function addNewFolderAndSaveCollection(newFolder, newCollection) {
   return (dispatch) => {
+    dispatch(setLoading(true));
     let endpoint = `${types.BASE_API}/users/${getUserId()}/folders`;
     return fetch(endpoint, {
       method: 'post',
@@ -168,8 +175,10 @@ export function addNewFolderAndSaveCollection(newFolder, newCollection) {
         dispatch(updateFolders(json.folders));
         // save new collection
         dispatch(saveCollection(newCollection));
+        dispatch(setLoading(false));
       }).catch((err) => {
         dispatch(setNotification(types.RESPONSE_FAILED, err.message));
+        dispatch(setLoading(false));
       })
   }
 }
@@ -181,6 +190,7 @@ export function addNewFolderAndSaveCollection(newFolder, newCollection) {
  */
 export function saveCollection(body) {
   return (dispatch) => {
+    dispatch(setLoading(true));
     let endpoint = `${types.BASE_API}/users/${getUserId()}/folders/${body.folderId}/collections`;
     return fetch(endpoint, {
       method: 'post',
@@ -191,7 +201,9 @@ export function saveCollection(body) {
       .then(parseJSON)
       .then(json => {
         dispatch(setNotification(types.RESPONSE_SUCCESSFUL));
+        dispatch(setLoading(false));
       }).catch((err) => {
+        dispatch(setLoading(false));
         dispatch(setNotification(types.RESPONSE_FAILED, err.message));
       })
   }
