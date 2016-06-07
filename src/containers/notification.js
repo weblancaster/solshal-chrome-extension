@@ -13,7 +13,6 @@ class Notification extends Component {
     let { dispatch } = this.props;
     clearTimeout(this.notificationTimer);
     // close notification in 4s
-    // for some reason this is causing re-render
     this.notificationTimer = setTimeout(() => {
       dispatch(resetNotification());
     }, 4000);
