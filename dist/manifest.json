@@ -9,7 +9,6 @@
   },
   "permissions": [
     "tabs",
-    "activeTab",
     "http://solshal.com/"
   ],
   "icons": {
