@@ -29,11 +29,11 @@ class App extends Component {
   }
 
   render() {
-    let { isAuthenticated, dispatch } = this.props;
+    let { isAuthenticated, dispatch, username } = this.props;
 
     return (
       <div>
-        <Header isAuthenticated={isAuthenticated} dispatch={dispatch} />
+        {(isAuthenticated) ? <Header dispatch={dispatch} username={username} /> : null}
         {this.resolveComponent()}
         <Notification />
       </div>
@@ -42,12 +42,12 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  let { isAuthenticated, token } = state.auth;
+  let { isAuthenticated, token, username } = state.auth;
   return {
     token: token,
+    username: username,
     isAuthenticated: isAuthenticated
   }
-
 }
 
 export default connect(mapStateToProps)(App);
