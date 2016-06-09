@@ -10,13 +10,14 @@ class Unauthorized extends Component {
 
   submit(e) {
     e.preventDefault();
+    let { dispatch } = this.props;
 
     const body = {
       email: ReactDOM.findDOMNode(this.refs.email).value,
       password: ReactDOM.findDOMNode(this.refs.password).value
     };
 
-    this.props.dispatch(signin(body));
+    dispatch(signin(body));
   }
 
   render() {

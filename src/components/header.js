@@ -24,4 +24,9 @@ class Header extends Component {
   }
 }
 
+Header.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  username: React.PropTypes.string.isRequired
+};
+
 export default Header;

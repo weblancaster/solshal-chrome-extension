@@ -12,8 +12,8 @@ import { verifyToken } from '../actions/api';
 
 class App extends Component {
   componentDidMount() {
-    let { dispatch, token } = this.props;
-    if ( token ) {
+    let { dispatch, isAuthenticated } = this.props;
+    if ( isAuthenticated ) {
       dispatch(verifyToken());
     }
   }
@@ -42,9 +42,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  let { isAuthenticated, token, username } = state.auth;
+  let { isAuthenticated, username } = state.auth;
   return {
-    token: token,
     username: username,
     isAuthenticated: isAuthenticated
   }

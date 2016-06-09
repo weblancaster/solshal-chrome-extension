@@ -84,6 +84,11 @@ class Notification extends Component {
     )
   }
 }
+
+Notification.propTypes = {
+  message: React.PropTypes.string.isRequired
+};
+
 function mapStateToProps(state) {
   const { notification } = state.app;
   return {
