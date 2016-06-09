@@ -57,6 +57,8 @@ select {
 a {
   text-decoration: none;
   cursor: pointer;
+  outline: none;
+  color: #000;
 }
 
 a:hover {
@@ -64,12 +66,18 @@ a:hover {
 }
 
 .header {
+  float: right;
   padding: 10px 10px 0 10px;
 }
 
-.logout {
-  float: right;
+.header li {
+  float: left;
+  margin-right: 10px;
   font-size: 1.5em;
+}
+
+.header li:last-child {
+  margin-right: 0;
 }
 
 /**

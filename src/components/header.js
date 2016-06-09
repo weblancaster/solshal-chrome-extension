@@ -8,23 +8,18 @@ class Header extends Component {
     dispatch(logout());
   }
 
-  resolveLogout() {
-    let { isAuthenticated } = this.props;
-
-    if ( isAuthenticated ) {
-      return (
-        <a className="logout" title="logout" onClick={this.logout.bind(this)}>logout</a>
-      )
-    } else {
-      return null;
-    }
-  }
-
   render() {
+    let { username } = this.props;
+
     return (
-      <div className="header">
-        {this.resolveLogout()}
-      </div>
+      <ul className="header">
+        <li>
+          <a href={`http://www.solshal.com/${username}`} title="go to dashboard" target="_blank">dashboard</a>
+        </li>
+        <li>
+          <a title="logout" onClick={this.logout.bind(this)}>logout</a>
+        </li>
+      </ul>
     )
   }
 }
