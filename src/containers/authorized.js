@@ -77,7 +77,7 @@ class Authorized extends Component {
           <h1 className="title">New collection</h1>
           <form onSubmit={this.add.bind(this)}>
             <label htmlFor="url">
-              <input type="text" ref="url" name="url" placeholder="New url" value={this.props.currentTabUrl}/>
+              <input type="text" ref="url" name="url" placeholder="Url" value={this.props.currentTabUrl}/>
             </label>
             <label htmlFor="tags">
               <input type="text" ref="tags" name="tags" placeholder="Tags by space (e.g cat cute)"/>
@@ -87,12 +87,12 @@ class Authorized extends Component {
             </label>
             <label htmlFor="folders" className="column">
               <select name="folders" onChange={this.chooseFolder.bind(this)}>
-                <option value="">Select your folder</option>
+                <option value="">Select folder</option>
                 {this.props.folders.map((folder) => {
                   return this.renderFoldersDropdown(folder);
                 })}
               </select>
-              <input type="text" ref="newFolder" name="newFolder" placeholder="Add new folder"/>
+              <input type="text" ref="newFolder" name="newFolder" placeholder="New folder"/>
             </label>
             <Button label="save" />
           </form>
