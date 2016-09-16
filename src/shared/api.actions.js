@@ -9,11 +9,11 @@ import {
   parseJSON,
   getUserId,
   getHeaders
-} from '../sources/helpers';
+} from './helpers';
 import {
   setNotification,
   setLoading
-} from './app';
+} from './app.actions';
 
 export function authed(token, tokenDecoded) {
   return {

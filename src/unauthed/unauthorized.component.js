@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Button from '../containers/button';
-import { signin } from '../actions/api';
+import Button from '../shared/button.container';
+import { signin } from '../shared/api.actions';
 
 class Unauthorized extends Component {
   constructor(props) {
