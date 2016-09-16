@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Solshal",
   "description": "The easiest way to bookmark and organize links. Be productive.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "browser_action": {
     "default_icon": "icon128.png",
     "default_popup": "index.html"
