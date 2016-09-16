@@ -1,6 +1,6 @@
 "use strict";
 
-import * as types from '../actions/constants';
+import * as types from '../shared/constants';
 
 const initialState = {
   folders: []

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as types from '../actions/constants';
-import { resetNotification } from '../actions/app';
+import * as types from './constants';
+import { resetNotification } from './app.actions';
 
 class Notification extends Component {
   constructor(props) {

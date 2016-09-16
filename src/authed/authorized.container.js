@@ -3,23 +3,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactDom from 'react-dom';
-import Button from './button';
+import Button from '../shared/button.container';
 import {
-  getCurrentTabUrl
-} from '../actions/app';
+  getCurrentTabUrl,
+  setCurrentTabUrl
+} from '../shared/app.actions';
 import {
   getFolders,
   saveCollection,
   addNewFolderAndSaveCollection
-} from '../actions/api';
+} from '../shared/api.actions';
 import {
   isUrl
-} from '../sources/helpers';
+} from '../shared/helpers';
 
 class Authorized extends Component {
   constructor(props) {
     super(props);
     this.selectedFolderId = null;
+  }
+
+  updateUrl(e) {
+    let { dispatch } = this.props;
+    let value = e.target.value;
+
+    dispatch(setCurrentTabUrl(value));
   }
 
   componentDidMount() {
@@ -77,7 +85,7 @@ class Authorized extends Component {
           <h1 className="title">New collection</h1>
           <form onSubmit={this.add.bind(this)}>
             <label htmlFor="url">
-              <input type="text" ref="url" name="url" placeholder="Url" value={this.props.currentTabUrl}/>
+              <input type="text" ref="url" name="url" placeholder="Url" value={this.props.currentTabUrl} onChange={this.updateUrl.bind(this)}/>
             </label>
             <label htmlFor="tags">
               <input type="text" ref="tags" name="tags" placeholder="Tags by space (e.g cat cute)"/>

@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 // reducers combined
-import reducers from '../reducers/index';
+import reducers from '../index.reducer';
 
 let logger, store;
 

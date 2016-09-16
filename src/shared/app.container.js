@@ -3,12 +3,12 @@ require('styles/App.css');
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Notification from './notification';
-import Authorized from './authorized';
-import Unauthorized from '../components/unauthorized';
-import Header from '../components/header';
+import Notification from './notification.container';
+import Authorized from '../authed/authorized.container';
+import Unauthorized from '../unauthed/unauthorized.component';
+import Header from '../authed/header.component';
 
-import { verifyToken } from '../actions/api';
+import { verifyToken } from './api.actions';
 
 class App extends Component {
   componentDidMount() {

@@ -1,10 +1,10 @@
-import * as types from '../actions/constants';
+import * as types from './constants';
 import {
   getToken,
   loggedIn,
   getUserId,
   getUserName
-} from '../sources/helpers';
+} from './helpers';
 
 const initialState = {
   token: getToken(),

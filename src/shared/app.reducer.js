@@ -1,4 +1,4 @@
-import * as types from '../actions/constants';
+import * as types from './constants';
 
 const initialState = {
   currentTabUrl: '',

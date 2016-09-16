@@ -1,5 +1,5 @@
 import React, {Component} from 'React';
-import { logout } from '../actions/api';
+import { logout } from '../shared/api.actions';
 
 class Header extends Component {
   logout(e) {
