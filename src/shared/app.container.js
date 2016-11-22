@@ -13,7 +13,7 @@ import { verifyToken } from './api.actions';
 class App extends Component {
   componentDidMount() {
     let { dispatch, isAuthenticated } = this.props;
-    if ( isAuthenticated ) {
+    if (isAuthenticated) {
       dispatch(verifyToken());
     }
   }
@@ -21,11 +21,11 @@ class App extends Component {
   resolveComponent() {
     let { isAuthenticated, dispatch } = this.props;
 
-    if ( isAuthenticated) {
-        return <Authorized />
-      } else {
-        return <Unauthorized dispatch={dispatch} />
-      }
+    if (isAuthenticated) {
+      return <Authorized />
+    } else {
+      return <Unauthorized dispatch={dispatch} />
+    }
   }
 
   render() {

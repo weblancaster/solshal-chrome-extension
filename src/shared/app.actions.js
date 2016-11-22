@@ -2,7 +2,7 @@ import * as types from './constants';
 
 export function getCurrentTabUrl() {
   return (dispatch) => {
-    chrome.tabs.getSelected(null, function(tab) {
+    chrome.tabs.getSelected(null, function (tab) {
       dispatch(setCurrentTabUrl(tab.url));
     });
   };
@@ -16,7 +16,7 @@ export function setCurrentTabUrl(currentTabUrl) {
 }
 
 export function setNotification(response, message) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(openNotification(response, message));
   }
 }

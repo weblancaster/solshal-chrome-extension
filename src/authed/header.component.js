@@ -1,4 +1,4 @@
-import React, {Component} from 'React';
+import React, { Component } from 'react';
 import { logout } from '../shared/api.actions';
 
 class Header extends Component {
