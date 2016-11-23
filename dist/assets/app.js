@@ -25836,7 +25836,7 @@
   \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -26300,7 +26300,7 @@
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -26399,23 +26399,29 @@
 	    }
 	  }, {
 	    key: 'renderFoldersDropdown',
-	    value: function renderFoldersDropdown(folder) {
-	      if (folder.name === 'random') {
-	        // select default folder in case user
-	        // doesn't choose any nor add new folder
-	        this.selectedFolderId = folder._id;
+	    value: function renderFoldersDropdown() {
+	      var _this2 = this;
+	
+	      if (this.props.folders && this.props.folders.length > 0) {
+	        return this.props.folders.map(function (folder) {
+	          if (folder.name === 'random') {
+	            // select default folder in case user
+	            // doesn't choose any nor add new folder
+	            _this2.selectedFolderId = folder._id;
+	          }
+	          return _react2.default.createElement(
+	            'option',
+	            { key: '' + folder._id, value: '' + folder._id },
+	            '' + folder.name.toLowerCase()
+	          );
+	        });
+	      } else {
+	        return null;
 	      }
-	      return _react2.default.createElement(
-	        'option',
-	        { key: '' + folder._id, value: '' + folder._id },
-	        '' + folder.name.toLowerCase()
-	      );
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'app-form' },
@@ -26456,9 +26462,7 @@
 	                  { value: '' },
 	                  'Select folder'
 	                ),
-	                this.props.folders.map(function (folder) {
-	                  return _this2.renderFoldersDropdown(folder);
-	                })
+	                this.renderFoldersDropdown()
 	              ),
 	              _react2.default.createElement('input', { type: 'text', ref: 'newFolder', name: 'newFolder', placeholder: 'New folder' })
 	            ),
@@ -26473,7 +26477,7 @@
 	}(_react.Component);
 	
 	Authorized.propTypes = {
-	  folders: _react2.default.PropTypes.array.isRequired,
+	  folders: _react2.default.PropTypes.array,
 	  currentTabUrl: _react2.default.PropTypes.string
 	};
 	
@@ -26671,7 +26675,9 @@
 	        'Accept': 'application/json',
 	        'Content-Type': 'application/json'
 	      },
-	      body: JSON.stringify({ token: getState().auth.token })
+	      body: JSON.stringify({
+	        token: getState().auth.token
+	      })
 	    }).then(_helpers.checkStatus).then(_helpers.parseJSON).then(function (json) {
 	      if (json.isValid) {
 	        return json.isValid;
@@ -26776,7 +26782,7 @@
 	      method: 'post',
 	      headers: (0, _helpers.getHeaders)(),
 	      body: JSON.stringify(body)
-	    }).then(_helpers.checkStatus).then(_helpers.parseJSON).then(function (json) {
+	    }).then(_helpers.checkStatus).then(_helpers.parseJSON).then(function () {
 	      dispatch((0, _app.setNotification)(types.RESPONSE_SUCCESSFUL));
 	      dispatch((0, _app.setLoading)(false));
 	    }).catch(function (err) {

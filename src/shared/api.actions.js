@@ -34,7 +34,7 @@ export function unauthed() {
 
 export function saveToken(token) {
   return () => {
-    if ( !loggedIn() ) {
+    if (!loggedIn()) {
       saveSessionKey('token', token);
     }
   }
@@ -77,12 +77,14 @@ export function verifyToken() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({token : getState().auth.token})
+      body: JSON.stringify({
+        token: getState().auth.token
+      })
     })
       .then(checkStatus)
       .then(parseJSON)
       .then(json => {
-        if ( json.isValid ) {
+        if (json.isValid) {
           return json.isValid
         } else {
           dispatch(logout());
@@ -199,7 +201,7 @@ export function saveCollection(body) {
     })
       .then(checkStatus)
       .then(parseJSON)
-      .then(json => {
+      .then(() => {
         dispatch(setNotification(types.RESPONSE_SUCCESSFUL));
         dispatch(setLoading(false));
       }).catch((err) => {
