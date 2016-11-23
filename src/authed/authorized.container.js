@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -43,7 +43,7 @@ class Authorized extends Component {
     let notes = ReactDom.findDOMNode(this.refs.notes).value;
     let newFolder = ReactDom.findDOMNode(this.refs.newFolder).value;
 
-    if ( !isUrl(url) ) {
+    if (!isUrl(url)) {
       // dispatch validation error message
       return false;
     }
@@ -54,9 +54,9 @@ class Authorized extends Component {
       notes: notes
     };
 
-    if ( newFolder !== '' ) {
-      this.props.dispatch(addNewFolderAndSaveCollection({name: newFolder}, newCollection));
-    } else if ( !!this.selectedFolderId ) {
+    if (newFolder !== '') {
+      this.props.dispatch(addNewFolderAndSaveCollection({ name: newFolder }, newCollection));
+    } else if (!!this.selectedFolderId) {
       newCollection['folderId'] = this.selectedFolderId;
       this.props.dispatch(saveCollection(newCollection));
     }
@@ -67,15 +67,21 @@ class Authorized extends Component {
     this.selectedFolderId = e.target.value;
   }
 
-  renderFoldersDropdown(folder) {
-    if ( folder.name === 'random' ) {
-      // select default folder in case user
-      // doesn't choose any nor add new folder
-      this.selectedFolderId = folder._id
+  renderFoldersDropdown() {
+    if (this.props.folders && this.props.folders.length > 0) {
+      return this.props.folders.map((folder) => {
+        if (folder.name === 'random') {
+          // select default folder in case user
+          // doesn't choose any nor add new folder
+          this.selectedFolderId = folder._id
+        }
+        return (
+          <option key={`${folder._id}`} value={`${folder._id}`}>{`${folder.name.toLowerCase()}`}</option>
+        )
+      })
+    } else {
+      return null;
     }
-    return (
-      <option key={`${folder._id}`} value={`${folder._id}`}>{`${folder.name.toLowerCase()}`}</option>
-    )
   }
 
   render() {
@@ -85,22 +91,20 @@ class Authorized extends Component {
           <h1 className="title">New collection</h1>
           <form onSubmit={this.add.bind(this)}>
             <label htmlFor="url">
-              <input type="text" ref="url" name="url" placeholder="Url" value={this.props.currentTabUrl} onChange={this.updateUrl.bind(this)}/>
+              <input type="text" ref="url" name="url" placeholder="Url" value={this.props.currentTabUrl} onChange={this.updateUrl.bind(this)} />
             </label>
             <label htmlFor="tags">
-              <input type="text" ref="tags" name="tags" placeholder="Tags by space (e.g cat cute)"/>
+              <input type="text" ref="tags" name="tags" placeholder="Tags by space (e.g cat cute)" />
             </label>
             <label htmlFor="notes">
-              <input type="text" ref="notes" name="notes" placeholder="Notes"/>
+              <input type="text" ref="notes" name="notes" placeholder="Notes" />
             </label>
             <label htmlFor="folders" className="column">
               <select name="folders" onChange={this.chooseFolder.bind(this)}>
                 <option value="">Select folder</option>
-                {this.props.folders.map((folder) => {
-                  return this.renderFoldersDropdown(folder);
-                })}
+                {this.renderFoldersDropdown()}
               </select>
-              <input type="text" ref="newFolder" name="newFolder" placeholder="New folder"/>
+              <input type="text" ref="newFolder" name="newFolder" placeholder="New folder" />
             </label>
             <Button label="save" />
           </form>
@@ -111,7 +115,7 @@ class Authorized extends Component {
 }
 
 Authorized.propTypes = {
-  folders: React.PropTypes.array.isRequired,
+  folders: React.PropTypes.array,
   currentTabUrl: React.PropTypes.string
 };
 
