@@ -210,3 +210,31 @@ export function saveCollection(body) {
       })
   }
 }
+
+/**
+ * Import user bookmarks
+ * @param {*} data
+ */
+export function importBookmarks(data) {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    let endpoint = `${types.BASE_API}/users/${getUserId()}/import-bookmarks`;
+    return fetch(endpoint, {
+      method: 'post',
+      headers: getHeaders(),
+      body: JSON.stringify({
+        data,
+        source: types.SOURCE
+      })
+    })
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(() => {
+        dispatch(setNotification(types.RESPONSE_SUCCESSFUL));
+        dispatch(setLoading(false));
+      }).catch((err) => {
+        dispatch(setLoading(false));
+        dispatch(setNotification(types.RESPONSE_FAILED, err.message));
+      })
+  }
+}
