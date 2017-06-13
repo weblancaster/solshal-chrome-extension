@@ -9,7 +9,9 @@
   },
   "permissions": [
     "tabs",
-    "http://solshal.com/"
+    "http://solshal.com/",
+    "http://localhost/*",
+    "bookmarks"
   ],
   "icons": {
     "16": "icon16.png",

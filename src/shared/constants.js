@@ -1,5 +1,9 @@
+// MISC
+export const SOURCE = "chrome";
+
 // API
 export const BASE = 'http://solshal.com';
+// export const BASE = 'http://localhost:3000'; // use when working locally
 export const BASE_API = `${BASE}/api`;
 
 // AUTH
