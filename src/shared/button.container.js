@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 class Button extends Component {
   resolveContent() {
-    let { isLoading, label } = this.props;
+    const { isLoading, label } = this.props;
 
-    if ( isLoading ) {
+    if (isLoading) {
       return (
         <div className="spinner">
           <div className="bounce1"></div>
@@ -13,14 +13,14 @@ class Button extends Component {
           <div className="bounce3"></div>
         </div>
       )
-    } else {
-      return label;
     }
+
+    return label;
   }
 
   render() {
     return (
-      <button type="submit" className="app-form_button">
+      <button {...this.props} className="app-form_button">
         {this.resolveContent()}
       </button>
     )
@@ -28,7 +28,7 @@ class Button extends Component {
 }
 
 function mapStateToProps(state) {
-  let { isLoading } = state.app;
+  const { isLoading } = state.app;
 
   return {
     isLoading: isLoading

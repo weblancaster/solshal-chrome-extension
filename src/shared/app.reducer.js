@@ -1,13 +1,14 @@
-import * as types from './constants';
+import * as types from "./constants";
 
 const initialState = {
-  currentTabUrl: '',
+  currentTabUrl: "",
   notification: {
     response: null,
-    message: '',
+    message: "",
     isOpen: false
   },
-  isLoading: false
+  isLoading: false,
+  displayOptions: false
 };
 
 function app(state = initialState, action) {
@@ -27,6 +28,10 @@ function app(state = initialState, action) {
     case types.SET_LOADING:
       return Object.assign({}, state, {
         isLoading: action.isLoading
+      });
+    case types.SET_OPTIONS:
+      return Object.assign({}, state, {
+        displayOptions: action.displayOptions
       });
     default:
       return state;

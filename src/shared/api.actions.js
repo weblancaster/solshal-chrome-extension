@@ -218,7 +218,8 @@ export function saveCollection(body) {
 export function importBookmarks(data) {
   return (dispatch) => {
     dispatch(setLoading(true));
-    let endpoint = `${types.BASE_API}/users/${getUserId()}/import-bookmarks`;
+    const endpoint = `${types.BASE_API}/users/${getUserId()}/chrome/import`;
+
     return fetch(endpoint, {
       method: 'post',
       headers: getHeaders(),
