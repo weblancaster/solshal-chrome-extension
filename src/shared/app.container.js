@@ -12,14 +12,14 @@ import { verifyToken } from './api.actions';
 
 class App extends Component {
   componentDidMount() {
-    let { dispatch, isAuthenticated } = this.props;
+    const { dispatch, isAuthenticated } = this.props;
     if (isAuthenticated) {
       dispatch(verifyToken());
     }
   }
 
   resolveComponent() {
-    let { isAuthenticated, dispatch } = this.props;
+    const { isAuthenticated, dispatch } = this.props;
 
     if (isAuthenticated) {
       return <Authorized />
@@ -29,11 +29,14 @@ class App extends Component {
   }
 
   render() {
-    let { isAuthenticated, dispatch, username } = this.props;
+    const { isAuthenticated, dispatch, username } = this.props;
 
     return (
       <div>
-        {(isAuthenticated) ? <Header dispatch={dispatch} username={username} /> : null}
+        {(isAuthenticated) ? <Header
+          dispatch={dispatch}
+          username={username}
+          /> : null}
         {this.resolveComponent()}
         <Notification />
       </div>
@@ -42,7 +45,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  let { isAuthenticated, username } = state.auth;
+  const { isAuthenticated, username } = state.auth;
+
   return {
     username: username,
     isAuthenticated: isAuthenticated

@@ -45,3 +45,10 @@ export function setLoading(value) {
     isLoading: value
   }
 }
+
+export function displayOptions(value) {
+  return {
+    type: types.SET_OPTIONS,
+    displayOptions: value
+  }
+}

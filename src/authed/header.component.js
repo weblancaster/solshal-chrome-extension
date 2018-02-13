@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
-import {
-  logout,
-  importBookmarks
-} from '../shared/api.actions';
+import { BASE } from '../shared/constants';
+import { logout } from '../shared/api.actions';
+import { displayOptions } from '../shared/app.actions';
 
 class Header extends Component {
   logout(e) {
     e.preventDefault();
-    let { dispatch } = this.props;
+    const { dispatch } = this.props;
     dispatch(logout());
   }
 
-  getBookmarks(e) {
+  displayOptions(value, e) {
     e.preventDefault();
-    chrome.bookmarks.getTree((bookmarksTree) => {
-      const { dispatch } = this.props;
-      dispatch(importBookmarks(bookmarksTree));
-    });
+    const { dispatch } = this.props;
+    dispatch(displayOptions(value));
   }
 
   render() {
@@ -25,13 +22,16 @@ class Header extends Component {
     return (
       <ul className="header">
         <li>
-          <a href={`http://www.solshal.com/${username}`} title="go to dashboard" target="_blank">dashboard</a>
+          <a title="Home page" onClick={this.displayOptions.bind(this, false)}>Home</a>
         </li>
         <li>
-          <a onClick={this.getBookmarks.bind(this)} title="Import to Solshal" target="_blank">Import bookmarks</a>
+          <a title="Options page" onClick={this.displayOptions.bind(this, true)}>Options</a>
         </li>
         <li>
-          <a title="logout" onClick={this.logout.bind(this)}>logout</a>
+          <a href={`${BASE}/${username}`} title="Go to dashboard" target="_blank">Dashboard</a>
+        </li>
+        <li>
+          <a title="Logout" onClick={this.logout.bind(this)}>Logout</a>
         </li>
       </ul>
     )

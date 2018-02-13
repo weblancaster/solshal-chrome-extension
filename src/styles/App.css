@@ -88,6 +88,9 @@ a:hover {
   width: 450px;
 }
 
+/**
+** FORM
+**/
 .app-form_container {
   overflow: hidden;
   width: 100%;
@@ -97,7 +100,8 @@ a:hover {
 
 .app-form_container .title {
   font-size: 1.5em;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-bottom: 10px;
   color: #20BEBC;
 }
 
@@ -138,6 +142,22 @@ a:hover {
 .app-form_button:hover {
   background: #EDF1F2;
   color: #000;
+}
+
+/**
+** OPTIONS
+**/
+.options_container {
+  margin-bottom: 10px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.options_container_title {
+  font-size: 1.3em;
+  color: #5a6677;
 }
 
 /**

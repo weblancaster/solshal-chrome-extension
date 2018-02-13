@@ -2,130 +2,32 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactDom from 'react-dom';
-import Button from '../shared/button.container';
-import {
-  getCurrentTabUrl,
-  setCurrentTabUrl
-} from '../shared/app.actions';
-import {
-  getFolders,
-  saveCollection,
-  addNewFolderAndSaveCollection
-} from '../shared/api.actions';
-import {
-  isUrl
-} from '../shared/helpers';
+import AddNewCollection from './addNewCollection.container';
+import Options from './options.container';
 
 class Authorized extends Component {
-  constructor(props) {
-    super(props);
-    this.selectedFolderId = null;
-  }
-
-  updateUrl(e) {
-    let { dispatch } = this.props;
-    let value = e.target.value;
-
-    dispatch(setCurrentTabUrl(value));
-  }
-
-  componentDidMount() {
-    this.props.dispatch(getFolders());
-    this.props.dispatch(getCurrentTabUrl());
-  }
-
-  add(e) {
-    e.preventDefault();
-
-    let url = ReactDom.findDOMNode(this.refs.url).value;
-    let tags = ReactDom.findDOMNode(this.refs.tags).value;
-    let notes = ReactDom.findDOMNode(this.refs.notes).value;
-    let newFolder = ReactDom.findDOMNode(this.refs.newFolder).value;
-
-    if (!isUrl(url)) {
-      // dispatch validation error message
-      return false;
-    }
-
-    let newCollection = {
-      url: url,
-      tags: tags,
-      notes: notes
-    };
-
-    if (newFolder !== '') {
-      this.props.dispatch(addNewFolderAndSaveCollection({ name: newFolder }, newCollection));
-    } else if (!!this.selectedFolderId) {
-      newCollection['folderId'] = this.selectedFolderId;
-      this.props.dispatch(saveCollection(newCollection));
-    }
-  }
-
-  chooseFolder(e) {
-    e.preventDefault();
-    this.selectedFolderId = e.target.value;
-  }
-
-  renderFoldersDropdown() {
-    if (this.props.folders && this.props.folders.length > 0) {
-      return this.props.folders.map((folder) => {
-        if (folder.name === 'random') {
-          // select default folder in case user
-          // doesn't choose any nor add new folder
-          this.selectedFolderId = folder._id
-        }
-        return (
-          <option key={`${folder._id}`} value={`${folder._id}`}>{`${folder.name.toLowerCase()}`}</option>
-        )
-      })
-    } else {
-      return null;
-    }
-  }
-
   render() {
-    return (
-      <div className="app-form">
-        <div className="app-form_container">
-          <h1 className="title">New collection</h1>
-          <form onSubmit={this.add.bind(this)}>
-            <label htmlFor="url">
-              <input type="text" ref="url" name="url" placeholder="Url" value={this.props.currentTabUrl} onChange={this.updateUrl.bind(this)} />
-            </label>
-            <label htmlFor="tags">
-              <input type="text" ref="tags" name="tags" placeholder="Tags by space (e.g cat cute)" />
-            </label>
-            <label htmlFor="notes">
-              <input type="text" ref="notes" name="notes" placeholder="Notes" />
-            </label>
-            <label htmlFor="folders" className="column">
-              <select name="folders" onChange={this.chooseFolder.bind(this)}>
-                <option value="">Select folder</option>
-                {this.renderFoldersDropdown()}
-              </select>
-              <input type="text" ref="newFolder" name="newFolder" placeholder="New folder" />
-            </label>
-            <Button label="save" />
-          </form>
-        </div>
-      </div>
-    )
+    const { displayOptions } = this.props;
+
+    if (displayOptions) {
+      return <Options />
+    }
+
+    return <AddNewCollection />
   }
 }
 
 Authorized.propTypes = {
   folders: React.PropTypes.array,
-  currentTabUrl: React.PropTypes.string
+  currentTabUrl: React.PropTypes.string,
+  displayOptions: React.PropTypes.bool
 };
 
 function mapStateToProps(state) {
-  let { folders } = state.user;
-  let { currentTabUrl } = state.app;
+  const { displayOptions } = state.app;
 
   return {
-    folders: folders,
-    currentTabUrl: currentTabUrl
+    displayOptions
   }
 }
 
